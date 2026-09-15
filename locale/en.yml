@@ -7,8 +7,11 @@ signature:
         errors:
              max_char_limit_exceed: Maximum character limit exceeded.
              max_image_count_exceed: Maximum image count exceeded.
+             save_failed: Error saving signature.
         profile:
             click: Click to write your signature
+            placeholder: Edit your signature here
+            format_notice: Please keep signatures compact. The Size, H1, and H2 tags are not parsed; other supported tags work normally.
     admin:
         permissions:
             edit_signature_others: Edit other users' signatures

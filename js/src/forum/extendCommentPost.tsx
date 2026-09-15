@@ -5,26 +5,17 @@ import CommentPost from 'flarum/forum/components/CommentPost';
 import Signature from './components/Signature';
 
 export default function extendCommentPost() {
-    extend(CommentPost.prototype, 'footerItems', function (items) {
-      if (app.current.matches(DiscussionPage)) {
-        if (this.attrs.post.user?.() && app.session.user) {
-          if (this.attrs.post.user().signature()) {
-            const allowInlineEditing = app.forum.attribute('allowInlineEditing') || false;
+  extend(CommentPost.prototype, 'footerItems', function (items) {
+    if (app.current.matches(DiscussionPage)) {
+      const user = this.attrs.post.user?.();
 
-            items.add(
-              'signature',
-              [
-                <Signature user={this.attrs.post.user()} readonly={!allowInlineEditing} />
-              ],
-              -999
-            );
-            // content.push(
-            //   <div className="Post-signature">
-            //     <Signature user={this.attrs.post.user()} readonly={!allowInlineEditing} />
-            //   </div>
-            // );
-          }
+      if (user && app.session.user) {
+        if (user.signature()) {
+          const allowInlineEditing = app.forum.attribute<boolean>('allowInlineEditing') || false;
+
+          items.add('signature', <Signature user={user} readonly={!allowInlineEditing} />, -999);
         }
       }
-    });
+    }
+  });
 }

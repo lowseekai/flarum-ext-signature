@@ -13,11 +13,11 @@ class SignatureFormatterProvider extends AbstractServiceProvider
 {
     public function register(): void
     {
-        $this->container->singleton('gtdxyz-signature.formatter', function (Container $container) {
+        $this->container->singleton('nodeloc-signature.formatter', function (Container $container) {
             return self::createFormatterInstance($container);
         });
 
-        $this->container->alias('gtdxyz-signature.formatter', SignatureFormatter::class);
+        $this->container->alias('nodeloc-signature.formatter', SignatureFormatter::class);
     }
 
     public static function createFormatterInstance(Container $container): SignatureFormatter

@@ -3,11 +3,11 @@
 namespace Gtdxyz\Signature\Validator;
 
 use Flarum\Foundation\AbstractValidator;
+use Flarum\Locale\TranslatorInterface;
 use Flarum\Settings\SettingsRepositoryInterface;
-use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Validation\Factory;
 use Gtdxyz\Signature\Formatter\SignatureFormatter;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SignatureValidator extends AbstractValidator
 {
@@ -26,10 +26,11 @@ class SignatureValidator extends AbstractValidator
         });
     }
 
-    protected function getRules()
+    protected function getRules(): array
     {
         return [
             'signature' => [
+                'nullable',
                 'string',
                 'max:' . $this->settings->get('signature.maximum_char_limit'),
                 'signature_images',
@@ -39,6 +40,10 @@ class SignatureValidator extends AbstractValidator
 
     private function validateSignatureImages($value)
     {
+        if ($value === null || $value === '') {
+            return true;
+        }
+
         $parsedContent = $this->formatter->parse($value);
 
         // Create a Crawler instance for the XML content

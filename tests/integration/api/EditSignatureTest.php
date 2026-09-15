@@ -14,7 +14,7 @@ class EditSignatureTest extends TestCase
     {
         parent::setUp();
 
-        $this->extension('gtdxyz-signature');
+        $this->extension('nodeloc-signature');
 
         $this->prepareDatabase([
             'users' => [

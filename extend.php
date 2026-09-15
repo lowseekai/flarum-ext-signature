@@ -2,10 +2,9 @@
 
 namespace Gtdxyz\Signature;
 
+use Flarum\Api\Resource\UserResource;
 use Flarum\Extend;
 use Flarum\User\User;
-use Flarum\Api\Serializer\UserSerializer;
-use Flarum\User\Event\Saving as UserSaving;
 
 return [
     (new Extend\Frontend('forum'))
@@ -18,11 +17,8 @@ return [
 
     new Extend\Locales(__DIR__ . '/locale'),
 
-    (new Extend\ApiSerializer(UserSerializer::class))
-        ->attributes(Api\AddUserAttributes::class),
-
-    (new Extend\Event())
-        ->listen(UserSaving::class, Listener\SaveSignatureToDatabase::class),
+    (new Extend\ApiResource(UserResource::class))
+        ->fields(Api\UserResourceFields::class),
 
     (new Extend\Settings())
         ->default('signature.maximum_char_limit', 500)

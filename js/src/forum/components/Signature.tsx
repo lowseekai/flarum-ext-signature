@@ -2,7 +2,6 @@ import Component, { ComponentAttrs } from 'flarum/common/Component';
 import User from 'flarum/common/models/User';
 import app from 'flarum/forum/app';
 import TextEditor from 'flarum/common/components/TextEditor';
-import Button from 'flarum/common/components/Button';
 import Stream from 'flarum/common/utils/Stream';
 import SignatureState from '../states/SignatureState';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
@@ -33,14 +32,14 @@ export default class Signature extends Component<SignatureAttrs> {
       </div>
     );
   }
-  renderEditor() {
+  renderEditor(): Mithril.Children {
     if (this.user.canEditSignature() && !this.attrs.readonly) {
       return (
         <div class="SignatureEditor">
           <TextEditor
             value={this.signatureState.content()}
             onchange={this.signatureState.content}
-            placeholder="Edit your signature here"
+            placeholder={app.translator.trans('signature.forum.profile.placeholder')}
             composer={this.signatureState}
             submitLabel={app.translator.trans('signature.forum.buttons.save')}
             onsubmit={this.onEditorSubmit.bind(this)}
@@ -48,6 +47,8 @@ export default class Signature extends Component<SignatureAttrs> {
         </div>
       );
     }
+
+    return null;
   }
 
   onEditorSubmit() {
@@ -81,11 +82,10 @@ export default class Signature extends Component<SignatureAttrs> {
         this.signatureState.toggleEditing();
         m.redraw();
       })
-      .catch((error) => {
+      .catch((error: unknown) => {
         this.loading = false;
-        // Provide specific feedback to the user
         console.error(error);
-        alert('Error saving signature'); // Replace with a more user-friendly error handling
+        alert(app.translator.trans('signature.forum.errors.save_failed'));
         m.redraw();
       });
   }
