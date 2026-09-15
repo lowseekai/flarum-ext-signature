@@ -5,7 +5,7 @@
     padding: 10px;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
     background: var(--body-bg-faded);
-    box-shadow: 0 2px 4px @shadow-color;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
     margin-bottom: 20px; // Spacing from the next element
     max-width: 100%; // Prevents the editor from overflowing its container
   
@@ -13,7 +13,7 @@
       width: 100%; // Ensure the editor takes the full width
       margin-bottom: 10px; // Spacing between editor and button
       border: 1px solid #eee;
-      border-radius: @border-radius;
+      border-radius: var(--border-radius);
 
       &-controls {
         margin: unset;
@@ -54,9 +54,8 @@
     //   }
     // }
   }
-  
   // Responsive design adjustments for smaller screens
-  @media @phone {
+  @media (max-width: 767px) {
     .SignatureEditor {
       padding: 10px;
   
