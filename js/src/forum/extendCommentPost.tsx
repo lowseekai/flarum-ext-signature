@@ -13,7 +13,13 @@ export default function extendCommentPost() {
         if (user.signature()) {
           const allowInlineEditing = app.forum.attribute<boolean>('allowInlineEditing') || false;
 
-          items.add('signature', <Signature user={user} readonly={!allowInlineEditing} />, -999);
+          items.add(
+            'signature',
+            <div className="Post-signature">
+              <Signature user={user} readonly={!allowInlineEditing} />
+            </div>,
+            -999
+          );
         }
       }
     }
