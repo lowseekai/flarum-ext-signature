@@ -5,7 +5,7 @@ import CommentPost from 'flarum/forum/components/CommentPost';
 import Signature from './components/Signature';
 
 export default function extendCommentPost() {
-  extend(CommentPost.prototype, 'content', function (items) {
+  extend(CommentPost.prototype, 'footerItems', function (items) {
     if (app.current.matches(DiscussionPage)) {
       const user = this.attrs.post.user?.();
 
@@ -13,11 +13,7 @@ export default function extendCommentPost() {
         if (user.signature()) {
           const allowInlineEditing = app.forum.attribute<boolean>('allowInlineEditing') || false;
 
-          items.push(
-            <div className="Post-signature">
-              <Signature user={user} readonly={!allowInlineEditing} />
-            </div>
-          );
+          items.add('signature', <Signature user={user} readonly={!allowInlineEditing} />, -999);
         }
       }
     }
