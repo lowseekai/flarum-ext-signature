@@ -5,6 +5,31 @@ import CommentPost from 'flarum/forum/components/CommentPost';
 import Signature from './components/Signature';
 import type Mithril from 'mithril';
 
+function findVNodeByClass(vnode: any, className: string): Mithril.Vnode<any, any> | undefined {
+  if (!vnode || typeof vnode !== 'object') {
+    return undefined;
+  }
+
+  if (
+    typeof vnode.attrs?.className === 'string' &&
+    vnode.attrs.className.split(/\s+/).includes(className)
+  ) {
+    return vnode;
+  }
+
+  if (Array.isArray(vnode.children)) {
+    for (const child of vnode.children) {
+      const match = findVNodeByClass(child, className);
+
+      if (match) {
+        return match;
+      }
+    }
+  }
+
+  return undefined;
+}
+
 export default function extendCommentPost() {
   extend(CommentPost.prototype, 'view', function (vnode: Mithril.Vnode<any, any>) {
     if (app.current.matches(DiscussionPage)) {
@@ -13,11 +38,7 @@ export default function extendCommentPost() {
       if (user && app.session.user) {
         if (user.signature()) {
           const allowInlineEditing = app.forum.attribute<boolean>('allowInlineEditing') || false;
-          const rootChildren = Array.isArray(vnode.children) ? vnode.children : [];
-          const postMain = rootChildren.find((child: any) =>
-            typeof child?.attrs?.className === 'string' &&
-            child.attrs.className.split(/\s+/).includes('Post-main')
-          ) as Mithril.Vnode<any, any> | undefined;
+          const postMain = findVNodeByClass(vnode, 'Post-main');
 
           if (postMain && Array.isArray(postMain.children)) {
             const alreadyAdded = postMain.children.some((child: any) =>
