@@ -1,6 +1,5 @@
 import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
-import DiscussionPage from 'flarum/forum/components/DiscussionPage';
 import CommentPost from 'flarum/forum/components/CommentPost';
 import Signature from './components/Signature';
 
@@ -21,10 +20,6 @@ function placeSignatureBeforeActions(element: Element | undefined) {
 
 export default function extendCommentPost() {
   extend(CommentPost.prototype, 'content', function (content) {
-    if (!app.current.matches(DiscussionPage)) {
-      return;
-    }
-
     const user = this.attrs.post.user?.();
 
     if (!user || !app.session.user || !user.signature()) {
