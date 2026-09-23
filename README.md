@@ -6,12 +6,12 @@ Add signature support to your Flarum forum!
 ## Installation
 
 ```bash
-composer require gtdxyz/flarum-ext-signature
+composer require nodeloc/flarum-ext-signature
 ```
 
 ## Updating
 
 ```bash
-composer update gtdxyz/flarum-ext-signature
+composer update nodeloc/flarum-ext-signature
 php flarum cache:clear
 ```

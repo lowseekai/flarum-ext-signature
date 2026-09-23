@@ -13,7 +13,6 @@ export default class SignaturePage extends UserPage {
     super.oninit(vnode);
 
     this.loadUser(m.route.param('username'));
-
     this.signatureState = new SignatureState();
   }
 
@@ -21,7 +20,7 @@ export default class SignaturePage extends UserPage {
     return (
       <div className="SignaturePage">
         <div className="SignaturePage-controls">{this.controlItems().toArray()}</div>
-        <Signature user={this.user} state={this.signatureState} />
+        {this.user && <Signature user={this.user} state={this.signatureState} />}
       </div>
     );
   }
@@ -36,9 +35,7 @@ export default class SignaturePage extends UserPage {
           <Button className="Button" icon="fas fa-edit" onclick={() => this.onEdit()}>
             {app.translator.trans('signature.forum.buttons.edit')}
           </Button>
-          <label className="SignaturePage-editLabel">
-            请注意，为避免过度占用版面，Size标签将不会解析，H1,H2标签也不会解析，其它标签正常使用。
-          </label>
+          <label className="SignaturePage-editLabel">{app.translator.trans('signature.forum.profile.format_notice')}</label>
         </div>
       );
 

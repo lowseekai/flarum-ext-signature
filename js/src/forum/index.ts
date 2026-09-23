@@ -4,8 +4,7 @@ import extendCommentPost from './extendCommentPost';
 
 export { default as extend } from './extend';
 
-app.initializers.add('gtdxyz-flarum-ext-signature', (app) => {
+app.initializers.add('nodeloc-signature', () => {
   extendUserPage();
   extendCommentPost();
-  
 });

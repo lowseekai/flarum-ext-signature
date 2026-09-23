@@ -1,21 +1,22 @@
 {
   "private": true,
-  "name": "@gtdxyz/flarum-ext-signature",
+  "name": "@nodeloc/flarum-ext-signature",
   "prettier": "@flarum/prettier-config",
   "dependencies": {
     "@flarum/prettier-config": "^1.0.0",
-    "@gtdxyz/flarum-ext-signature": "file:",
-    "flarum-tsconfig": "^1.0.2",
-    "flarum-webpack-config": "^2.0.2",
-    "mdarea": "^0.0.10",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
+    "mdarea": "^0.0.10"
   },
   "devDependencies": {
-    "flarum-tsconfig": "^1.0.2",
+    "flarum-tsconfig": "^2.0.0",
+    "flarum-webpack-config": "^3.0.0",
     "prettier": "^3.0.3",
     "typescript": "^4.5.4",
-    "typescript-coverage-report": "^0.6.1"
+    "typescript-coverage-report": "^0.6.1",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^4.9.1"
+  },
+  "overrides": {
+    "@types/node": "18.19.39"
   },
   "scripts": {
     "dev": "webpack --mode development --watch",

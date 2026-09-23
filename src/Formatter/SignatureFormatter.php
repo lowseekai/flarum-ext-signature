@@ -5,6 +5,8 @@ namespace Gtdxyz\Signature\Formatter;
 use Flarum\Extension\ExtensionManager;
 use Flarum\Formatter\Formatter;
 use Illuminate\Cache\Repository;
+use s9e\TextFormatter\Configurator;
+use s9e\TextFormatter\Parser;
 
 class SignatureFormatter extends Formatter
 {
@@ -20,16 +22,16 @@ class SignatureFormatter extends Formatter
         $this->extensions = $extensions;
     }
 
-    protected function getComponent($name)
+    protected function getComponent(string $name): mixed
     {
-        $formatter = $this->cache->rememberForever('gtdxyz-signature.formatter', function () {
+        $formatter = $this->cache->rememberForever('nodeloc-signature.formatter', function () {
             return $this->getConfigurator()->finalize();
         });
 
         return $formatter[$name];
     }
 
-    protected function getParser($context = null)
+    protected function getParser(mixed $context = null): Parser
     {
         $parser = parent::getParser($context);
 
@@ -39,7 +41,7 @@ class SignatureFormatter extends Formatter
         return $parser;
     }
 
-    protected function getConfigurator()
+    protected function getConfigurator(): Configurator
     {
         $configurator = parent::getConfigurator();
 
@@ -61,8 +63,8 @@ class SignatureFormatter extends Formatter
         return $configurator;
     }
 
-    public function flush()
+    public function flush(): void
     {
-        $this->cache->forget('gtdxyz-signature.formatter');
+        $this->cache->forget('nodeloc-signature.formatter');
     }
 }

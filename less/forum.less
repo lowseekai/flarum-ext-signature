@@ -4,9 +4,32 @@
   padding-top: inherit;
 }
 
-.SignatureWrapper {
-  clear:both;
-  border-top:1px dashed #ffffff;
-  padding-top:20px;
+.Post-signature {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  clear: both;
+  margin: 16px 0 12px;
+  padding: 10px 8px 0;
+  border-top: 1px dashed var(--control-bg);
+  color: var(--muted-color);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.Post-signature .Signature {
+  padding-top: 0;
+}
+
+.Post-signature .Signature-content {
+  color: var(--muted-color);
+}
+
+.Post-signature .Signature-content > :first-child {
+  margin-top: 0;
+}
+
+.Post-signature .Signature-content > :last-child {
+  margin-bottom: 0;
 }
 
